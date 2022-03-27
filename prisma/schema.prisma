@@ -1,0 +1,68 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model client {
+  id          Int           @id @default(autoincrement()) @db.UnsignedInt
+  admin       Int           @default(0)
+  firstName   String        @db.VarChar(45)
+  secondName  String        @db.VarChar(45)
+  gender      client_gender
+  phoneNumber String        @db.VarChar(45)
+  streetName  String        @db.VarChar(30)
+  houseNumber String        @db.VarChar(4)
+  postCode    String        @db.VarChar(10)
+  birthDate   DateTime      @db.Date
+  password    String        @db.VarChar(200)
+  sector      String        @db.VarChar(10)
+  email       String        @db.VarChar(45)
+}
+
+model purchase {
+  id             Int      @id @default(autoincrement())
+  date           DateTime @db.Date
+  purchaseStatus Int      @db.TinyInt
+  clientID       Int      @db.UnsignedInt
+}
+
+model purchase_ticket {
+  purchaseTicketID Int @id @default(autoincrement())
+  amount           Int
+  purchaseID       Int
+  ticketID         Int
+}
+
+model ticket {
+  ticketID     Int    @id @default(autoincrement())
+  ticket       String @db.VarChar(45)
+  description  String @db.Text
+  price        Float  @db.Float
+  imageSrc     String @db.VarChar(50)
+  ticketTypeID Int
+}
+
+model ticket_available {
+  TicketAvailableID Int @id @default(autoincrement())
+  inStock           Int
+  ticketID          Int
+}
+
+model ticket_type {
+  ticketTypeID Int    @id
+  ticketType   String @db.VarChar(45)
+  days         Int
+  clearance    Int
+}
+
+enum client_gender {
+  M
+  V
+}

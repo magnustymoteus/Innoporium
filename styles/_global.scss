@@ -1,0 +1,46 @@
+@use "fadein";
+body {
+	color: white;
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	letter-spacing: 1px;
+	width: 100% !important;
+	background-color: black;
+	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+-moz-animation: fadein 5s; /* Firefox < 16 */
+ -ms-animation: fadein 5s; /* Internet Explorer */
+  -o-animation: fadein 5s; /* Opera < 12.1 */
+	 animation: fadein 5s;
+}
+html, body {
+	overflow-x: hidden;
+}
+nav, .button, .section h1, .section h2{
+	text-transform: uppercase;
+}
+.button {
+	padding: 2px 30px;
+	border: 2px solid white;
+	position: relative;
+	color: white;
+	text-align: center;
+	transition: 100ms linear;
+	bottom: 0;
+	&:hover {
+		bottom: 5px;
+		cursor: pointer;
+	}
+}
+.btnBig {
+	font-size: 1rem;
+	padding: 0.75rem 3rem 0.75rem 3rem;
+	margin: 2rem 2rem 0 0;
+}
+.btnBlack {
+	background: linear-gradient(#212020, #000000);
+}
+.btnRed {
+	background: linear-gradient(#F2293A, #ca303d);
+}
+.logoWhite {
+	width: 9rem;
+}

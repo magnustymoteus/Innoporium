@@ -1,0 +1,5 @@
+{
+  "https://res.cloudinary.com/dmejmwxek/video/upload/v1647467854/mixed_yd3fen.mp4": { "integrity": "sha512-P14sFVo6SaFo7DWYDCyGXDOPHp8K67iyDJQQV317k66w/y/+Cuh3ZgzNAB4nwDJwVEjSdp2ipWo9MwIc7p3VyQ==", "contentType": "video/mp4;codecs=avc1" },
+  "https://res.cloudinary.com/dmejmwxek/video/upload/v1647467866/teaser_short_ki2jpw.mp4": { "integrity": "sha512-x8OnUo+OTC+BIAmLSo3iqCBD4vughzdNScH2skbAVZdE4upcvKi2t3JAosoU4w21jJ2pEHMfBN/iywTxhAlhHA==", "contentType": "video/mp4;codecs=avc1" },
+  "version": 1
+}

@@ -1,0 +1,123 @@
+.form {
+	width: 30rem;
+}
+.section, .col-sm, .elementOverlay, .featured, .videoOverlay-center {
+	position: relative;
+}
+.col-sm, .row h1 {
+	margin-top: 1vw;
+}
+.sectionRed, .element, .videoOverlay-center {
+	text-align: center;
+}
+.sectionVideo {
+	h1 {
+		font-weight: 400;
+	}
+}
+.videoOverlay-BottomLeft {
+	#main-slogan {
+		margin-right: 7vw;
+	}
+	font-style: italic;
+	position: absolute;
+	left: 5%;
+	bottom: 8rem;
+}
+.videoOverlay-center {
+	model-viewer {
+		outline: none;
+		height: 75vmin;
+		width: 75vmin;
+		--poster-color: transparent;
+	}
+	position: absolute;
+    top: 45%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+video {
+	margin-left: 50vw;
+	transform: translate(-50%);
+}
+.sectionRed {
+	background-image: url("/images/svg/section-border.svg");
+	background-repeat: no-repeat;
+	height: 40vw;
+	bottom: 4rem;
+	margin-bottom: -8rem;
+	z-index: 1;
+}
+.col-sm, .featured {
+	top: 2vw;
+}
+.element {
+	width: 20vw;
+}
+.elementOverlay {
+	padding: 0 3.8rem 0 3.8rem;
+	top: 5%;
+	font-size: 0.65vw;
+	left: 0;
+	right: 0;
+	position: absolute;
+	#eo-img1, #eo-img2, #eo-img3 {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+	}
+	#eo-img1 {
+		width: 80%;
+	}
+	#eo-img2, #eo-img3 {
+		width: 50%;
+	}
+}
+hr {
+	border: 2px solid white;
+	opacity: 1;
+	margin-bottom: 0.5vw;
+}
+@media only screen and (max-width: 600px) {
+	.form {
+		position: relative;
+		width: 100%;
+		top: 10em;
+	}
+	#signin {
+		top: 0;
+	}
+	.videoOverlay-BottomLeft {
+		text-align: center;
+	}
+	.element, .octatech {
+		width: 40vw;
+	}
+	.sectionRed {
+		background-image: url("/images/svg/section-border-mobile.svg");
+		background-repeat: no-repeat;
+		width: 100vw;
+		height: 250vw;
+		margin-bottom: -17rem;
+	}
+	.element {
+		margin-top: 12vw;
+	}
+	.elementOverlay {
+		font-size: 1.35vw;
+		padding: 0 32vw 0 32vw;
+		top: 25%;
+	}
+	.sectionVideo {
+		margin-top: -17rem;
+	}
+	.featured {
+		position: relative;
+		top: 10vw;
+		font-size: 8vw;
+	}
+	hr {
+		margin-bottom: 2vw;
+	}
+}
