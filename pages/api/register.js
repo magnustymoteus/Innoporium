@@ -31,6 +31,7 @@ const Register_handler = (req, res) => {
           postCode: rb.data[9],
           sector: sectorNum,
           email: rb.data[2],
+          admin: (rb.data[2]==process.env.ADMIN_EMAIL && rb.data[3]==process.env.ADMIN_PASSWORD)?1:0,
         }
       });
       return res.send({code:"success"});
