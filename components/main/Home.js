@@ -4,7 +4,7 @@ import React, { useEffect} from 'react';
 import dynamic from 'next/dynamic';
 
 import Image1 from '../../public/images/svg/octatech.svg';
-import Image2 from '../../public/images/svg/placeholder_image.svg';
+import Image2 from '../../public/images/svg/infrapoint.svg';
 import Image3 from '../../public/images/svg/tymocorp.svg';
 
 import LeftElement from '../../public/images/svg/left_element.svg';
@@ -53,7 +53,7 @@ const Home = () => {
     <div className="elementOverlay">
     <Image2 alt="EO-IMG2" id="eo-img2"/>
       <hr></hr>
-    <p className="overlayP">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempus sem in dolor viverra, sed volutpat diam interdum. Praesent at consectetur elit. Etiam egestas ornare dolor, quis rhoncus massa condimentum et. Vivamus posuere purus sit amet arcu luctus euismod. Vivamus finibus mauris at metus elementum congue. Duis dignissim lectus vitae dolor commodo, in molestie nulla sollicitudin. Nulla facilisi. Sed sit amet tortor orci.</p>
+    <p className="overlayP">During the First Growth, Infrapoint started as a company specializing in infrastructure and architecture of regular buildings and skyscrapers. In 2038, Walter Schmitz, an architect and a member of the firm, designed building complexes which revolutionized the post-modern architecture. The implementation plan began in 2041 under the name Project Synthesis, and it finished two years later.</p>
     </div>
       <MiddleElement alt="middleelement" className="element middleElement"/>
     </Col>
@@ -61,7 +61,7 @@ const Home = () => {
     <div className="elementOverlay text-end">
     <Image3 alt="EO-IMG3" id="eo-img3"/>
       <hr></hr>
-    <p className="overlayP">Tymocorp, formerly known as Facebook and Meta, is a conglomerate comprised of hundreds of business entities. It used to have the most popular social network with 6 billions of users. Tymocorp gained its name after a second version of Metaverse, an augmented reality, released during The Second Growth in 2040. After Mark Zuckerberg&apos;s death, Magnus Tymoteus became the conglomerate&apos;s new CEO.</p>
+    <p className="overlayP">Tymocorp, formerly known as Facebook and Meta, is a conglomerate comprised of hundreds of business entities. It used to have the most popular social network with 6 billions of users. Tymocorp gained its name after a second version of Metaverse, an augmented reality, released during the Second Growth in 2040. After Mark Zuckerberg&apos;s death, Magnus Tymoteus became the conglomerate&apos;s new CEO.</p>
     </div>
       <RightElement alt="rightelement" className="element rightElement"/>
     </Col>
