@@ -29,6 +29,7 @@ const Header = () => {
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">univ</Nav.Link></Link>
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">events</Nav.Link></Link>
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">behind the scenes</Nav.Link></Link>
+        <Link href="/contact" passHref><Nav.Link className="mx-2 text-white">contact</Nav.Link></Link>
       </Nav>
       <Nav>
       {
@@ -42,7 +43,7 @@ const Header = () => {
       }
       </Nav>
       <Nav>
-      <Link href="/" passHref><Nav.Link className="text-white mx-2"><button className="button btnRed my-1">shop</button></Nav.Link></Link>
+      <Link href="/shop" passHref><Nav.Link className="text-white mx-2"><button className="button btnRed my-1">shop</button></Nav.Link></Link>
       </Nav>
     </Navbar.Collapse>
     </Container>

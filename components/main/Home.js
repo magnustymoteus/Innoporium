@@ -2,6 +2,7 @@
 import Aos from 'aos';
 import React, { useEffect} from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 import Image1 from '../../public/images/svg/octatech.svg';
 import Image2 from '../../public/images/svg/infrapoint.svg';
@@ -13,7 +14,7 @@ import MiddleElement from '../../public/images/svg/middle_element.svg';
 
 import {Row, Col, Container} from 'react-bootstrap';
 
-const Video1 = "https://res.cloudinary.com/dmejmwxek/video/upload/v1648212966/city-shot-1_kynhnj.mp4";
+const Video1 = "https://res.cloudinary.com/dmejmwxek/video/upload/v1648632770/website-shot1_v2_iqrk1b.mp4";
 const Video2 = 'https://res.cloudinary.com/dmejmwxek/video/upload/v1647467854/mixed_yd3fen.mp4';
 
 const ShipModel = dynamic(
@@ -31,7 +32,7 @@ const Home = () => {
       <video src={Video1} className="embed-responsive-item" autoPlay muted loop playsInline></video>
       <div className="videoOverlay-BottomLeft" data-aos="zoom-in">
         <h1 className="display-2" id="main-slogan">center of innovation <br></br>since 2032</h1>
-        <button className="button btnBig btnRed">buy tickets</button>
+        <Link href="/shop" passHref><button className="button btnBig btnRed">buy keycards</button></Link>
         <button className="button btnBig btnBlack">watch video</button>
       </div>
 </section>
@@ -53,7 +54,7 @@ const Home = () => {
     <div className="elementOverlay">
     <Image2 alt="EO-IMG2" id="eo-img2"/>
       <hr></hr>
-    <p className="overlayP">During the First Growth, Infrapoint started as a company specializing in infrastructure and architecture of regular buildings and skyscrapers. In 2038, Walter Schmitz, an architect and a member of the firm, designed building complexes which revolutionized the post-modern architecture. The implementation plan began in 2041 under the name Project Synthesis, and it finished two years later.</p>
+    <p className="overlayP">Before making our Pointower, Infrapoint started as a company specializing in infrastructure and architecture of regular buildings and skyscrapers. In 2038, Walter Schmitz, an architect and a member of the firm, designed building complexes which revolutionized the post-modern architecture. The implementation plan began in 2041 under the name Project Synthesis, and it finished two years later.</p>
     </div>
       <MiddleElement alt="middleelement" className="element middleElement"/>
     </Col>

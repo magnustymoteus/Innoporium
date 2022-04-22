@@ -19,6 +19,9 @@
 	#main-slogan {
 		margin-right: 7vw;
 	}
+	.button {
+		right: 1%;
+	}
 	font-style: italic;
 	position: absolute;
 	left: 5%;
@@ -93,6 +96,10 @@ hr {
 	}
 	.videoOverlay-BottomLeft {
 		text-align: center;
+		left: 0;
+		#main-slogan {
+			margin: 0;
+		}
 	}
 	.element, .octatech {
 		width: 40vw;

@@ -1,0 +1,12 @@
+.sectionShopIntro {
+    h1,h2,h3 {
+    font-weight: 400;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .shop-tiers {
+        .button {
+            width: 12em;
+        }
+    }
+}

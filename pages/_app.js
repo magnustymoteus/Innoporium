@@ -4,7 +4,10 @@ import 'react-phone-input-2/lib/style.css'
 
 import "../styles/_global.scss";
 import "../styles/header.scss";
+
 import "../styles/main.scss";
+import "../styles/shop.scss";
+
 import "../styles/footer.scss";
 
 import { SessionProvider } from 'next-auth/react';

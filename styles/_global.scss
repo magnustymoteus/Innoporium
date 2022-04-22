@@ -31,15 +31,21 @@ nav, .button, .section h1, .section h2{
 	}
 }
 .btnBig {
-	font-size: 1rem;
-	padding: 0.75rem 3rem 0.75rem 3rem;
-	margin: 2rem 2rem 0 0;
+	font-size: 1em;
+	padding: 0.75em 3em 0.75em 3em;
+	margin: 2em 1em 0 1rem;
 }
 .btnBlack {
 	background: linear-gradient(#212020, #000000);
 }
 .btnRed {
 	background: linear-gradient(#F2293A, #ca303d);
+}
+.btnGreen {
+	background: linear-gradient(#37b907, #489c0b);
+}
+.btnBlue {
+	background: linear-gradient(#0dacac, #079d96);
 }
 .logoWhite {
 	width: 9rem;
