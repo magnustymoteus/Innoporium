@@ -15,7 +15,7 @@ import MiddleElement from '../../public/images/svg/middle_element.svg';
 import {Row, Col, Container} from 'react-bootstrap';
 
 const Video1 = "https://res.cloudinary.com/dmejmwxek/video/upload/v1648632770/website-shot1_v2_iqrk1b.mp4";
-const Video2 = 'https://res.cloudinary.com/dmejmwxek/video/upload/v1647467854/mixed_yd3fen.mp4';
+const Video2 = 'https://res.cloudinary.com/dmejmwxek/video/upload/v1650746448/composition_ship_secrk1.mp4';
 
 const ShipModel = dynamic(
   () => import('../models/Ship'),

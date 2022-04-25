@@ -12,6 +12,10 @@ import "../styles/footer.scss";
 
 import { SessionProvider } from 'next-auth/react';
 
+import { setCookies } from 'cookies-next';
+
+setCookies('sameSite', 'strict');
+
 const MyApp = ({ Component, pageProps: {session, ...pageProps} }) => {
   return (
     <SessionProvider session={session}>

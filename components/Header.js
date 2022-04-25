@@ -25,7 +25,7 @@ const Header = () => {
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav" className="animate__animated animate__fadeIn">
       <Nav className="me-auto">
-        <Link href="/" passHref><Nav.Link className="mx-2 text-white">festival</Nav.Link></Link>
+        <Link href="/" passHref><Nav.Link className="mx-2 text-white">expo</Nav.Link></Link>
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">univ</Nav.Link></Link>
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">events</Nav.Link></Link>
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">behind the scenes</Nav.Link></Link>
