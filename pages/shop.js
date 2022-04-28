@@ -9,7 +9,7 @@ const Index = () => {
   return (
     <React.Fragment>
       <Head>
-        <title>Innoporium 2049 - Shop</title>
+        <title>Innoporium 2049 - Keycards</title>
         <meta name="description" content="Center of innovation." />
         <link rel="icon" href="/favicon.ico?v=2" />
       </Head>

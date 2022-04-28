@@ -4,13 +4,10 @@
     }
     margin-bottom: -10px;
 }
-.sectionShopInfo {
-    margin: 0 0 3.65vw 0;
-}
 .tierAccordion {
     h1 {
         font-family: pirulen;
-        font-size: 5vw;
+        font-size: 5em;
         left: 20px;
         margin: 0;
         position: relative;
@@ -19,26 +16,40 @@
         transform: translateY(-50%);
     }
     ul {
-        font-size: 1vw;
+        top: -10%;
+        font-size: 1.15em;
         text-align: right;
         right: 10%;
         position: relative;
         list-style-position: inside;
     }
+    li {
+        margin: 0 0 0.5em 0;
+    }
     #tiers-questionMark {
         font-size: 7em;
-        top: 50px;
+        top: 0.2em;
+        margin: 0 0 -0.5em 0;
     }
     height: 20em;
 }
 .accordionGreen {
-    background: linear-gradient(to right, rgba(55, 185, 7, 0.6), rgba(72, 156, 11, 0.6)), url('https://res.cloudinary.com/dmejmwxek/image/upload/v1650814921/render_esbrlm.png') no-repeat top;
+    background: linear-gradient(to right, rgba(55, 185, 7, 0.6), rgba(72, 156, 11, 0.6)), url('https://res.cloudinary.com/dmejmwxek/image/upload/v1651180565/tier1.png') no-repeat center top;
 }
 .accordionBlue {
-    background: linear-gradient(to right, rgba(13, 172, 172, 0.6), rgba(7, 157, 150, 0.6)), url('https://res.cloudinary.com/dmejmwxek/image/upload/v1650916458/poster_render03_landscape_syihnb.png') no-repeat center;
+    background: linear-gradient(to right, rgba(13, 172, 172, 0.6), rgba(7, 157, 150, 0.6)), url('https://res.cloudinary.com/dmejmwxek/image/upload/v1651179871/tier2.png') no-repeat center;
 }
 .accordionRed {
-    background: linear-gradient(to right, rgba(242, 41, 58, 0.6), rgba(202, 48, 61, 0.6)), url('https://res.cloudinary.com/dmejmwxek/image/upload/v1650916624/poster1_landscape_icg9q7.png') no-repeat center;
+    background: linear-gradient(to right, rgba(242, 41, 58, 0.6), rgba(202, 48, 61, 0.6)), url('https://res.cloudinary.com/dmejmwxek/image/upload/v1651179870/tier3.png') no-repeat right;
+}
+.accordionGreen-wrapper {
+    background: linear-gradient(to right, rgba(55, 185, 7, 1), rgba(72, 156, 11, 1));
+}
+.accordionBlue-wrapper {
+    background: linear-gradient(to right, rgba(13, 172, 172, 1), rgba(7, 157, 150, 1));
+}
+.accordionRed-wrapper {
+    background: linear-gradient(to right, rgba(242, 41, 58, 1), rgba(202, 48, 61, 1));
 }
 @media only screen and (max-width: 600px) {
     .shop-tiers {
@@ -59,8 +70,10 @@
             top: 15%;
             font-size: 10pt;
         }
-        li {
-            margin: 0 0 0.5em 0;
+        #tiers-questionMark {
+            font-size: 8em;
+            top: 0.5em;
+            margin: 0;
         }
     }
 }

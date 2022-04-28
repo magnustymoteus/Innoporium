@@ -1,13 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 const ShopVideo = "https://res.cloudinary.com/dmejmwxek/video/upload/v1650804124/three_keycards_trimmed_lssalm.mp4";
+const ShopVideo2 = "https://res.cloudinary.com/dmejmwxek/video/upload/v1651062983/blueprint_render_zy9zde.mp4";
+import Aos from 'aos';
 
 const Shop = () => {
+  useEffect(() => {
+    Aos.init({duration: 1e3});
+  });
     return (
         <React.Fragment>
           <section className="section sectionShopIntro">
           <video src={ShopVideo} className="embed-responsive-item" autoPlay muted loop playsInline></video>
           <div className="videoOverlay-center">
-              <h1 className="display-1">get now</h1>
+              <h1 className="display-1">get a keycard now</h1>
               <h4 className="display-4">&amp; View exclusive, high-end tech.</h4>
               <div className="shop-tiers">
             <a href="#accordion-tier1"><button className="button btnBig btnGreen">get tier 1</button></a>
@@ -17,7 +22,8 @@ const Shop = () => {
           </div>
           </section>
           <section className="section sectionShopInfo">
-                <div className="tierAccordion accordionGreen" id="accordion-tier1">
+                <div className="accordionGreen-wrapper">
+                <div className="tierAccordion accordionGreen" id="accordion-tier1" data-aos="fade-in">
                   <h1>TIER 1</h1>
                     <ul>
                       <li>Infrapoint&apos;s Architectural Models</li>
@@ -27,7 +33,9 @@ const Shop = () => {
                       <button className="button purchaseButton btnGreen">purchase</button>
                     </ul>
                   </div>
-                  <div className="tierAccordion accordionBlue" id="accordion-tier2">
+                  </div>
+                  <div className="accordionBlue-wrapper">
+                  <div className="tierAccordion accordionBlue" id="accordion-tier2" data-aos="fade-in">
                   <h1>TIER 2</h1>
                   <ul>
                       <li>High-End Quantumbots &amp; Drones</li>
@@ -37,13 +45,19 @@ const Shop = () => {
                       <button className="button purchaseButton btnBlue">purchase</button>
                     </ul>
                   </div>
-                  <div className="tierAccordion accordionRed" id="accordion-tier3">
+                  </div>
+                  <div className="accordionRed-wrapper">
+                  <div className="tierAccordion accordionRed" id="accordion-tier3" data-aos="fade-in">
                   <h1>TIER 3</h1>
                   <ul>
                   <h1 id="tiers-questionMark">?</h1>
                   <button className="button purchaseButton btnRed">purchase</button>
                   </ul>
                 </div>
+                </div>
+          </section>
+          <section className="section sectionShopOutro">
+          <video src={ShopVideo2} className="embed-responsive-item" autoPlay muted loop playsInline></video>
           </section>
         </React.Fragment>
     );
