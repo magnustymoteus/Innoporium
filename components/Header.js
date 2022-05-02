@@ -1,12 +1,15 @@
 /* By Patryk Pilichowski, All rights reserved.*/
 import {signOut, useSession} from 'next-auth/react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import {useEffect} from 'react';
-import {Navbar, Nav, Container} from 'react-bootstrap';
+import {Navbar, Nav, Container, NavDropdown} from 'react-bootstrap';
 
 import Logo from '../public/images/svg/logo-white.svg';
 import Aos from 'aos';
+
+const defaultPImg = "https://res.cloudinary.com/dmejmwxek/image/upload/v1651499272/profile_pictures/04.png";
 
 const Header = () => {
     const {data: session, status} = useSession();
@@ -27,19 +30,22 @@ const Header = () => {
       <Nav className="me-auto">
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">expo</Nav.Link></Link>
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">univ</Nav.Link></Link>
-        <Link href="/" passHref><Nav.Link className="mx-2 text-white">events</Nav.Link></Link>
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">behind the scenes</Nav.Link></Link>
         <Link href="/contact" passHref><Nav.Link className="mx-2 text-white">contact</Nav.Link></Link>
       </Nav>
       <Nav>
       {
-      session && session.user.admin>=1 && status == "authenticated" && (<Link href="/admin" passHref><Nav.Link className="mx-2 text-white">admin</Nav.Link></Link>)
-      }
-      {
       !session && status == "unauthenticated" && (<Link href="/sign-in" passHref><Nav.Link className="mx-2 text-white">sign in</Nav.Link></Link>)
       }
       {
-      session && status == 'authenticated' && (<Link href="/api/auth/signout" passHref><Nav.Link className="mx-2 text-white"  onClick={e => sOut(e)}>sign out ({session.user.firstName || session.user.name})</Nav.Link></Link>)
+      session && status == 'authenticated' && (
+        <NavDropdown title={<Image src={(session.user.image)?session.user.image:defaultPImg} alt="profileImg" className="profileImg" width="44px" height="44px"/>} id="basic-nav-dropdown" menuVariant="dark">
+          <p className="text-center my-auto px-3">{(session.user.firstName && session.user.secondName)? `${session.user.firstName} ${session.user.secondName}`: session.user.name}</p>
+          <NavDropdown.Divider/>
+          {session && session.user.admin>=1 && status == "authenticated" && (<Link href="/admin" passHref><Nav.Link className="mx-2 text-center my-auto text-white">admin</Nav.Link></Link>)}
+         <Link href="/api/auth/signout" passHref><Nav.Link className="mx-2 text-white text-center my-auto"  onClick={e => sOut(e)}>sign out</Nav.Link></Link>
+      </NavDropdown>
+      )
       }
       </Nav>
       <Nav>

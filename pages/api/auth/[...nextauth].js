@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import {PrismaAdapter} from "@next-auth/prisma-adapter"
 import prisma from "../../../lib/prisma";
 import generators from "../../../lib/generators";
-
 export default NextAuth({
     providers: [
         CredentialsProvider({
@@ -28,6 +27,7 @@ export default NextAuth({
                   sector: user[0].sector,
                   email: user[0].email,
                   admin: user[0].admin,
+                  image: generators.getRandPImg(),
                 }
             }
             return null;
