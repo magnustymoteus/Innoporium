@@ -9,7 +9,6 @@ const Register_handler = (req, res) => {
   return new Promise(async(resolve) => {
     try {
       const rb = req.body;
-      console.log(4,rb.data);
       if (req.method !== 'POST') {
         res.status(405).send({code:"error", message: 'Only POST requests allowed' });
         return;
