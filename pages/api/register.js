@@ -9,29 +9,32 @@ const Register_handler = (req, res) => {
   return new Promise(async(resolve) => {
     try {
       const rb = req.body;
+      console.log(4,rb.data);
       if (req.method !== 'POST') {
         res.status(405).send({code:"error", message: 'Only POST requests allowed' });
         return;
       }
-      if(!validateDate(rb.data[5]) || (!validatePhone(rb.data[6])) || (await generators.getUserE(rb.data[2]))) return res.send({code:"error", message: "User exists or invalid input"})
+      const index = (rb.native)?1:0;
+      if(!validateDate(rb.data[4+index]) || (!validatePhone(rb.data[5+index])) || (await generators.getUserE(rb.data[2+index]))) return res.send({code:"error", message: "User exists or invalid input"});
       const sectorNum = await generators.sector();
-      const hashedPassword = await generators.hash(rb.data[3]);
-      rb.data[4] = getGender(rb.data[4]);
-      const birthDateVal = new Date(rb.data[5]).toISOString();
+      const password = (rb.native)?await generators.hash(rb.data[0]):null;
+      rb.data[3+index] = getGender(rb.data[3+index]);
+      const birthDateVal = new Date(rb.data[4+index]).toISOString();
       await prisma.client.create({
         data: {
-          firstName: rb.data[0],
-          secondName: rb.data[1],
-          password: hashedPassword,
-          gender: rb.data[4],
+          firstName: rb.data[0+index],
+          secondName: rb.data[1+index],
+          password: password,
+          gender: rb.data[3+index],
           birthDate: birthDateVal,
-          phoneNumber: rb.data[6],
-          streetName: rb.data[7],
-          houseNumber: rb.data[8],
-          postCode: rb.data[9],
+          phoneNumber: rb.data[5+index],
+          streetName: rb.data[6+index],
+          houseNumber: rb.data[7+index],
+          postCode: rb.data[8+index],
           sector: sectorNum,
-          email: rb.data[2],
-          admin: (rb.data[2]==process.env.ADMIN_EMAIL && rb.data[3]==process.env.ADMIN_PASSWORD)?1:0,
+          email: rb.data[2+index],
+          admin: 0,
+          type: (rb.native)?"Native":"Other",
         }
       });
       return res.send({code:"success"});

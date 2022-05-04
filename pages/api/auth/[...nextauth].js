@@ -20,7 +20,7 @@ export default NextAuth({
             authorize: async(credentials) => {
             try {
             let user = await generators.getUserEP(credentials.email, credentials.password);
-            if(user) {
+            if(user && user[0].type === "Native") {
                 return {
                   native: true,
                   firstName: user[0].firstName,
@@ -29,6 +29,7 @@ export default NextAuth({
                   email: user[0].email,
                   admin: user[0].admin,
                   image: generators.getRandPImg(),
+                  provider: "credentials",
                 }
             }
             return null;
@@ -50,6 +51,7 @@ export default NextAuth({
                 name: profile.login,
                 image: profile.avatar_url,
                 email: profile.email,
+                provider: "github",
               }
             }
         }),
@@ -65,6 +67,7 @@ export default NextAuth({
                 name: profile.username,
                 image: userAvatar,
                 email: profile.email,
+                provider: "discord",
             }
           },
             clientId: process.env.DISCORD_ID,

@@ -4,12 +4,14 @@ import { useRouter } from 'next/router';
 import PhoneInput from 'react-phone-input-2'
 import React, { useState, useEffect } from 'react';
 import Aos from 'aos';
+import {useSession, signIn, signOut} from 'next-auth/react';
 
 const SignUp = (props) => {
+  const {data: session} = useSession();
+  const router = useRouter();
   useEffect(() => {
     Aos.init({duration: 1e3});
   });
-  const router = useRouter();
   const [registerError, setRegisterError] = useState([false, null]);
   const [canRegister, setCanRegister] = useState(false);
   const [phone, setPhone] = useState();
@@ -30,12 +32,23 @@ const SignUp = (props) => {
   }
   const sUp = async event => {
     event.preventDefault();
-    let infoArr = new Array();
+    let infoArr = (props.nonNative)?[session.user.email]:new Array();
     for(let i=0;i<event.target.length-1;i++) {
       infoArr.push(event.target[i].value);
     }
+    if(!props.nonNative) {
+      const password = infoArr[3];
+      infoArr.splice(3,1);
+      console.log(infoArr);
+      infoArr.unshift(password);
+    }
+    else {
+      infoArr.splice(0,1);
+      infoArr.splice(2,0,email);
+    }
     let info = {
-      data: infoArr
+      data: infoArr,
+      native: !props.nonNative,
     }
     try {
     const res = await fetch('/api/register', {
@@ -46,9 +59,18 @@ const SignUp = (props) => {
       body: JSON.stringify(info),
     });
     const result = await res.json();
-    if(result.code==="success") router.push("/sign-in");
+    if(result.code==="success") {
+      if(!props.nonNative) {
+        router.push("/sign-in");
+      }
+      else {
+        signOut();
+        signIn(session.user.provider);
+      }
+    }
     else if(result.code==="error") setRegisterError([true, result.message]); 
     } catch(error) {
+      setRegisterError([true, error]); 
       console.log(error);
     }
   }
@@ -61,7 +83,7 @@ const SignUp = (props) => {
     </div>
 
     <Form onSubmit={sUp} method="post">
-    {(props.nonNative) && (<p className="text-center">As non-native user, completing your profile grants you shopping access.</p>)}
+    {(props.nonNative) && (<p className="text-center">As non-native user, completing your profile grants you shopping access. You will have to re-login afterwards.</p>)}
       <Row>
         <Col>
           <Form.Group className="mb-3" controlId="firstName">
@@ -133,7 +155,7 @@ const SignUp = (props) => {
   <Button variant="danger" type="submit" className="my-2" disabled={!canRegister}>{(!props.title)?"Create Account":props.title}</Button>
   </div>
 </Form>
-{registerError[0] && (<Alert variant="danger">Cannot {(!props.nonNative)?"register":props.title} {registerError[1]}</Alert>)}
+{registerError[0] && (<Alert variant="danger">Cannot {(!props.nonNative)?"register":props.title+": "} {registerError[1]}</Alert>)}
 {(!props.hideAHABtn)&&(<Link href="/sign-in" passHref><Button variant="light" type="submit">Already have an account?</Button></Link>)}
 </Container>
 </div>

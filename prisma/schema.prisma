@@ -22,7 +22,7 @@ model client {
   houseNumber String        @db.VarChar(4)
   postCode    String        @db.VarChar(10)
   birthDate   DateTime      @db.Date
-  password    String        @db.VarChar(200)
+  password    String?       @db.VarChar(200)
   sector      String        @db.VarChar(10)
   email       String        @db.VarChar(45)
 }

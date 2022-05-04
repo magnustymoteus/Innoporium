@@ -10,7 +10,7 @@ const SignUp_Index = () => {
   const router = useRouter();
   const {data: session, status} = useSession();
   useEffect(() => {
-     if(session && status == 'unauthenticated') {
+     if(!session || session.user.native || session.user.profileComplete || status == 'unauthenticated') {
        router.push('/');
      }
   });
