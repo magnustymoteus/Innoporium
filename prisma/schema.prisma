@@ -16,6 +16,7 @@ model client {
   firstName   String        @db.VarChar(45)
   secondName  String        @db.VarChar(45)
   gender      client_gender
+  type        client_type   @default(Native)
   phoneNumber String        @db.VarChar(45)
   streetName  String        @db.VarChar(30)
   houseNumber String        @db.VarChar(4)
@@ -65,4 +66,9 @@ model ticket_type {
 enum client_gender {
   M
   V
+}
+
+enum client_type {
+  Native
+  Other
 }

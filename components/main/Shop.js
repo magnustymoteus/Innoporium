@@ -50,7 +50,10 @@ const Shop = () => {
                   <div className="tierAccordion accordionRed" id="accordion-tier3" data-aos="fade-in">
                   <h1>TIER 3</h1>
                   <ul>
-                  <h1 id="tiers-questionMark">?</h1>
+                      <li>Teleportation Technology</li>
+                      <li>Private Space Tour To <mark>[REDACTED]</mark></li>
+                      <li>Reading Access To <mark>[REDACTED]</mark> Research</li>
+                      <li><mark>[REDACTED]</mark></li>
                   <button className="button purchaseButton btnRed">purchase</button>
                   </ul>
                 </div>

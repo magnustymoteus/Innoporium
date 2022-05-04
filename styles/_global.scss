@@ -18,6 +18,10 @@ body {
 html, body {
 	overflow-x: hidden;
 }
+mark {
+	background-color: black;
+	color: black;
+}
 nav, .button, .section h1, .section h2{
 	text-transform: uppercase;
 }

@@ -14,7 +14,7 @@ const defaultPImg = "https://res.cloudinary.com/dmejmwxek/image/upload/v16514992
 const Header = () => {
     const {data: session, status} = useSession();
     useEffect(() => {
-        Aos.init({duration: 1000});
+        Aos.init({duration: 1e3});
     });
     const sOut = (e) => {
       e.preventDefault();
@@ -39,10 +39,11 @@ const Header = () => {
       }
       {
       session && status == 'authenticated' && (
-        <NavDropdown title={<Image src={(session.user.image)?session.user.image:defaultPImg} alt="profileImg" className="profileImg" width="44px" height="44px"/>} id="basic-nav-dropdown" menuVariant="dark">
+        <NavDropdown title={<Image src={(session.user.image)?session.user.image:defaultPImg} alt={session.user.image} className="profileImg" width="44px" height="44px"/>} id="basic-nav-dropdown" menuVariant="dark">
           <p className="text-center my-auto px-3">{(session.user.firstName && session.user.secondName)? `${session.user.firstName} ${session.user.secondName}`: session.user.name}</p>
           <NavDropdown.Divider/>
-          {session && session.user.admin>=1 && status == "authenticated" && (<Link href="/admin" passHref><Nav.Link className="mx-2 text-center my-auto text-white">admin</Nav.Link></Link>)}
+          {session && session.user.admin>=1 && status == "authenticated" && (<Link href="/admin" passHref><Nav.Link className="mx-2 text-center my-auto">admin</Nav.Link></Link>)}
+          {!session.user.native && !session.user.profileComplete && (<Link href="/complete-profile" passHref><Nav.Link className="mx-2 text-center my-auto">Complete Profile</Nav.Link></Link>)}
          <Link href="/api/auth/signout" passHref><Nav.Link className="mx-2 text-white text-center my-auto"  onClick={e => sOut(e)}>sign out</Nav.Link></Link>
       </NavDropdown>
       )

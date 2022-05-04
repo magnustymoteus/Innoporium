@@ -22,6 +22,7 @@ export default NextAuth({
             let user = await generators.getUserEP(credentials.email, credentials.password);
             if(user) {
                 return {
+                  native: true,
                   firstName: user[0].firstName,
                   secondName: user[0].secondName,
                   sector: user[0].sector,
@@ -40,8 +41,32 @@ export default NextAuth({
         GitHubProvider({
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET,
+            profile: async(profile) => {
+              let profileComplete = await generators.getNonNativeUser(profile.email);
+              return {
+                native: false,
+                profileComplete: profileComplete,
+                id: profile.id,
+                name: profile.login,
+                image: profile.avatar_url,
+                email: profile.email,
+              }
+            }
         }),
         DiscordProvider({
+          profile: async(profile) => {
+            let userAvatar = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`;
+            let profileComplete = await generators.getNonNativeUser(profile.email);
+            return {
+                native: false,
+                profileComplete: profileComplete,
+                id: profile.id,
+                snowflake: profile.id,
+                name: profile.username,
+                image: userAvatar,
+                email: profile.email,
+            }
+          },
             clientId: process.env.DISCORD_ID,
             clientSecret: process.env.DISCORD_SECRET,
         }),

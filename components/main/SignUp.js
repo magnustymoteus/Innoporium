@@ -2,10 +2,10 @@ import {Form, Container, Button, Col, Row, Alert} from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PhoneInput from 'react-phone-input-2'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Aos from 'aos';
 
-const SignUp = () => {
+const SignUp = (props) => {
   useEffect(() => {
     Aos.init({duration: 1e3});
   });
@@ -57,10 +57,11 @@ const SignUp = () => {
     <Container className="mx-auto bg-light text-dark p-4 rounded mt-4 form" id="signup" data-aos="fade-right">
 
     <div className="text-center my-3">
-    <h2>Sign Up</h2>
+    {(!props.title)?(<h2>Sign Up</h2>):(<h2>{props.title}</h2>)}
     </div>
 
     <Form onSubmit={sUp} method="post">
+    {(props.nonNative) && (<p className="text-center">As non-native user, completing your profile grants you shopping access.</p>)}
       <Row>
         <Col>
           <Form.Group className="mb-3" controlId="firstName">
@@ -75,16 +76,21 @@ const SignUp = () => {
           </Form.Group>
         </Col>
       </Row>
+  {
+  (!props.nonNative) &&(
+    <React.Fragment>
   <Form.Group className="mb-3" controlId="email">
     <Form.Label>Email address</Form.Label>
     <Form.Control type="email" placeholder="Enter email" name="email" required/>
   </Form.Group>
-
+  
   <Form.Group className="mb-3" controlId="password">
     <Form.Label>Password</Form.Label>
     <Form.Control type="password" placeholder="Password" name="password" minLength="7" autoComplete="on" required/>
   </Form.Group>
-
+  </React.Fragment>
+  )
+  }
   <Form.Group className="mb-3" controlId="gender">
    <Form.Label>Gender</Form.Label>
   <Form.Select name="gender" required>
@@ -123,13 +129,12 @@ const SignUp = () => {
   </Form.Group>
   </Col>
   </Row>
-
   <div className="text-center my-4">
-  <Button variant="danger" type="submit" className="my-2" disabled={!canRegister}>Create Account</Button>
+  <Button variant="danger" type="submit" className="my-2" disabled={!canRegister}>{(!props.title)?"Create Account":props.title}</Button>
   </div>
 </Form>
-{registerError[0] && (<Alert variant="danger">Cannot register: {registerError[1]}</Alert>)}
-<Link href="/sign-in" passHref><Button variant="light" type="submit">Already have an account?</Button></Link>
+{registerError[0] && (<Alert variant="danger">Cannot {(!props.nonNative)?"register":props.title} {registerError[1]}</Alert>)}
+{(!props.hideAHABtn)&&(<Link href="/sign-in" passHref><Button variant="light" type="submit">Already have an account?</Button></Link>)}
 </Container>
 </div>
     );
