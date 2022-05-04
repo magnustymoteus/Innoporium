@@ -39,10 +39,10 @@ const SignUp = (props) => {
     if(!props.nonNative) {
       const password = infoArr[3];
       infoArr.splice(3,1);
-      console.log(infoArr);
       infoArr.unshift(password);
     }
     else {
+      const email = infoArr[0];
       infoArr.splice(0,1);
       infoArr.splice(2,0,email);
     }
