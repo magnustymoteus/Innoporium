@@ -10,6 +10,15 @@
 .sectionRed, .element, .videoOverlay-center {
 	text-align: center;
 }
+.sectionCart {
+	height: 105vh;
+	.cart {
+		background-color: #353434;
+		height: 70vh;
+		border: 5px solid white;
+		width: 60em;
+	}
+}
 .sectionVideo {
 	h1 {
 		font-weight: 400;

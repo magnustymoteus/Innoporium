@@ -15,15 +15,15 @@ const Shop = () => {
               <h1 className="display-1">get a keycard now</h1>
               <h4 className="display-4">&amp; View exclusive, high-end tech.</h4>
               <div className="shop-tiers">
-            <a href="#accordion-tier1"><button className="button btnBig btnGreen">get tier 1</button></a>
-            <a href="#accordion-tier2"><button className="button btnBig btnBlue">get tier 2</button></a>
-            <a href="#accordion-tier3"><button className="button btnBig btnRed">get tier 3</button></a>
+            <a href="#loc1"><button className="button btnBig btnGreen">get tier 1</button></a>
+            <a href="#loc2"><button className="button btnBig btnBlue">get tier 2</button></a>
+            <a href="#loc3"><button className="button btnBig btnRed" id="loc1">get tier 3</button></a>
             </div>
           </div>
           </section>
           <section className="section sectionShopInfo">
                 <div className="accordionGreen-wrapper">
-                <div className="tierAccordion accordionGreen" id="accordion-tier1" data-aos="fade-in">
+                <div className="tierAccordion accordionGreen" data-aos="fade-in" id="loc2">
                   <h1>TIER 1</h1>
                     <ul>
                       <li>Infrapoint&apos;s Architectural Models</li>
@@ -35,7 +35,7 @@ const Shop = () => {
                   </div>
                   </div>
                   <div className="accordionBlue-wrapper">
-                  <div className="tierAccordion accordionBlue" id="accordion-tier2" data-aos="fade-in">
+                  <div className="tierAccordion accordionBlue" data-aos="fade-in" id="loc3">
                   <h1>TIER 2</h1>
                   <ul>
                       <li>High-End Quantumbots &amp; Drones</li>
@@ -47,7 +47,7 @@ const Shop = () => {
                   </div>
                   </div>
                   <div className="accordionRed-wrapper">
-                  <div className="tierAccordion accordionRed" id="accordion-tier3" data-aos="fade-in">
+                  <div className="tierAccordion accordionRed" data-aos="fade-in">
                   <h1>TIER 3</h1>
                   <ul>
                       <li>Teleportation Technology</li>

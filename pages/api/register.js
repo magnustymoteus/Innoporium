@@ -14,7 +14,7 @@ const Register_handler = (req, res) => {
         return;
       }
       const index = (rb.native)?1:0;
-      if(!validateDate(rb.data[4+index]) || (!validatePhone(rb.data[5+index])) || (await generators.getUserE(rb.data[2+index]))) return res.send({code:"error", message: "User exists or invalid input"});
+      if(!validateDate(rb.data[4+index]) || (!validatePhone(rb.data[5+index])) || (await generators.getUserE(rb.data[2+index]) && rb.native)) return res.send({code:"error", message: `User exists or invalid input`});
       const sectorNum = await generators.sector();
       const password = (rb.native)?await generators.hash(rb.data[0]):null;
       rb.data[3+index] = getGender(rb.data[3+index]);
@@ -33,7 +33,8 @@ const Register_handler = (req, res) => {
           sector: sectorNum,
           email: rb.data[2+index],
           admin: 0,
-          type: (rb.native)?"Native":"Other",
+          type: rb.type,
+          ubits: Math.random() * 10.11936,
         }
       });
       return res.send({code:"success"});

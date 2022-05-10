@@ -3,6 +3,10 @@
     font-family: pirulen;
     src: url("/fonts/pirulen.otf");
 }
+@font-face {
+	font-family: ubit;
+	src: url("/fonts/ubit.ttf");
+}
 body {
 	color: white;
 	font-family: 'Helvetica', 'Arial', sans-serif;
@@ -21,6 +25,9 @@ html, body {
 mark {
 	background-color: black;
 	color: black;
+}
+.ubit {
+	font-family: "ubit", 'Helvetica';
 }
 nav, .button, .section h1, .section h2{
 	text-transform: uppercase;

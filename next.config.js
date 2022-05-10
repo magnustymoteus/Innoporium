@@ -17,6 +17,6 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["avatars.githubusercontent.com", "cdn.discordapp.com", "res.cloudinary.com"],
+    domains: ["avatars.githubusercontent.com", "cdn.discordapp.com", "res.cloudinary.com", "via.placeholder.com"],
   },
 };

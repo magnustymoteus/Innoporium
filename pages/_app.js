@@ -7,6 +7,7 @@ import "../styles/header.scss";
 
 import "../styles/main.scss";
 import "../styles/shop.scss";
+import "../styles/cart.scss";
 
 import "../styles/footer.scss";
 

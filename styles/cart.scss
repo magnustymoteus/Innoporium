@@ -1,0 +1,22 @@
+.div-01 {
+    width: 50px;
+}
+.div-02 {
+    width: 80px;
+}
+.a-01 {
+    .fas {
+        color: black;
+    }
+}
+.h-custom {
+    margin: 5em 0 10em 0;
+}
+.btn-checkout {
+    transition: 100ms linear;
+    position: relative;
+    bottom: 0;
+    &:hover {
+        bottom: 5px;
+    }
+}

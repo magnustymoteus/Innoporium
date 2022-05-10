@@ -3,7 +3,7 @@ import {signOut, useSession} from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Navbar, Nav, Container, NavDropdown} from 'react-bootstrap';
 
 import Logo from '../public/images/svg/logo-white.svg';
@@ -39,13 +39,18 @@ const Header = () => {
       }
       {
       session && status == 'authenticated' && (
-        <NavDropdown title={<Image src={(session.user.image)?session.user.image:defaultPImg} alt={session.user.image} className="profileImg" width="44px" height="44px"/>} id="basic-nav-dropdown" menuVariant="dark">
-          <p className="text-center my-auto px-3">{(session.user.firstName && session.user.secondName)? `${session.user.firstName} ${session.user.secondName}`: session.user.name}</p>
+        <React.Fragment>
+        <NavDropdown title={<Image src={(session.user.image)?session.user.image:defaultPImg} alt={session.user.image} className="profileImg" width="44px" height="44px"/>}
+         id="basic-nav-dropdown" menuVariant="dark">
+          <p className="text-center my-auto mx-3">{(session.user.firstName && session.user.secondName)? `${session.user.firstName} ${session.user.secondName}`: session.user.name}</p>
           <NavDropdown.Divider/>
           {session && session.user.admin>=1 && status == "authenticated" && (<Link href="/admin" passHref><Nav.Link className="mx-2 text-center my-auto">admin</Nav.Link></Link>)}
           {!session.user.native && !session.user.profileComplete && (<Link href="/complete-profile" passHref><Nav.Link className="mx-2 text-center my-auto">Complete Profile</Nav.Link></Link>)}
+          {(session.user.profileComplete || session.user.native) && (<Link href="/cart" passHref><Nav.Link className="mx-2 text-center my-auto">Cart</Nav.Link></Link>)}
          <Link href="/api/auth/signout" passHref><Nav.Link className="mx-2 text-white text-center my-auto"  onClick={e => sOut(e)}>sign out</Nav.Link></Link>
       </NavDropdown>
+        {(session.user.ubits)?<p className="mx-2 my-auto text-white ubit">U {session.user.ubits}</p>:<></>}
+        </React.Fragment>
       )
       }
       </Nav>

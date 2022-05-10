@@ -1,24 +1,22 @@
-import { useRouter } from "next/router";
 import React, {useState, useEffect} from "react";
 import {Table, Container, Popover, OverlayTrigger, Button} from 'react-bootstrap';
 import { server } from '../../lib/server';
+import { useSession } from "next-auth/react";
 
 const Users = () => {
-    const router = useRouter();
     const [TBody, setTBody] = useState(null);
     const commitTable = async() => {
       try {
-          const res = await fetch(`${server}/api/users`);
-            const result = await res.json();
+          const res = await fetch(`${server}/api/get-users`);
+          const result = await res.json();
             if(result.code == "success") {
                 let TBodyObject = result.users.map(
                     (info, index) => {
                         return (
                           <OverlayTrigger trigger="click" placement="top" overlay={popoverInit(`${info.firstName} ${info.secondName}`, info.id, info.admin)} key={"tr-"+index} rootClose>
                             <tr>
-                                <td>{info.id}</td>
+                                <td>{info.type[0].toUpperCase()+info.type.slice(1,info.type.length)}</td>
                                 <td>{info.admin}</td>
-                                <td>{info.sector}</td>
                                 <td>{info.email}</td>
                                 <td>{info.firstName}</td>
                                 <td>{info.secondName}</td>
@@ -28,6 +26,7 @@ const Users = () => {
                                 <td>{info.streetName}</td>
                                 <td>{info.houseNumber}</td>
                                 <td>{info.postCode}</td>
+                                <td>{info.ubits}</td>
                             </tr>
                             </OverlayTrigger>
                         )});
@@ -70,8 +69,11 @@ const Users = () => {
       );
       return popover;
     }
+    const {data: session} = useSession();
     useEffect(() => {
+        if(session) {
         commitTable();
+        }
     });
     return (
     <div className="vh-100 d-flex justify-content-center align-items-center">
@@ -80,9 +82,8 @@ const Users = () => {
     <Table striped bordered hover size="sm" variant="light" responsive>
     <thead>
     <tr>
-      <th>ID</th>
+      <th>Account</th>
       <th>Admin</th>
-      <th>Sector</th>
       <th>Email</th>
       <th>First Name</th>
       <th>Second Name</th>
@@ -92,6 +93,7 @@ const Users = () => {
       <th>Street Name</th>
       <th>House Number</th>
       <th>Postal Code</th>
+      <th>Ubits</th>
     </tr>
   </thead>
   <tbody>

@@ -49,6 +49,7 @@ const SignUp = (props) => {
     let info = {
       data: infoArr,
       native: !props.nonNative,
+      type: (session)? session.user.provider:"native",
     }
     try {
     const res = await fetch('/api/register', {

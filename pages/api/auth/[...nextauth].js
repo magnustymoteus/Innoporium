@@ -20,16 +20,19 @@ export default NextAuth({
             authorize: async(credentials) => {
             try {
             let user = await generators.getUserEP(credentials.email, credentials.password);
-            if(user && user[0].type === "Native") {
+            if(user && user.type === "native") {
                 return {
+                  account_id: user.id,
                   native: true,
-                  firstName: user[0].firstName,
-                  secondName: user[0].secondName,
-                  sector: user[0].sector,
-                  email: user[0].email,
-                  admin: user[0].admin,
+                  firstName: user.firstName,
+                  secondName: user.secondName,
+                  sector: user.sector,
+                  email: user.email,
+                  admin: user.admin,
                   image: generators.getRandPImg(),
-                  provider: "credentials",
+                  provider: "native",
+                  ubits: user.ubits,
+                  profileComplete: true,
                 }
             }
             return null;
@@ -43,31 +46,35 @@ export default NextAuth({
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET,
             profile: async(profile) => {
-              let profileComplete = await generators.getNonNativeUser(profile.email);
+              let user = await generators.getNonNativeUser(profile.email);
               return {
+                account_id: (user)?user.id:null,
                 native: false,
-                profileComplete: profileComplete,
+                profileComplete: (user)?true:false,
                 id: profile.id,
                 name: profile.login,
                 image: profile.avatar_url,
                 email: profile.email,
                 provider: "github",
+                ubits: (user)?user.ubits:null,
               }
             }
         }),
         DiscordProvider({
           profile: async(profile) => {
             let userAvatar = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`;
-            let profileComplete = await generators.getNonNativeUser(profile.email);
+            let user = await generators.getNonNativeUser(profile.email);
             return {
+                account_id: (user)?user.id:null,
                 native: false,
-                profileComplete: profileComplete,
+                profileComplete: (user)?true:false,
                 id: profile.id,
                 snowflake: profile.id,
                 name: profile.username,
                 image: userAvatar,
                 email: profile.email,
                 provider: "discord",
+                ubits: (user)?user.ubits:null,
             }
           },
             clientId: process.env.DISCORD_ID,
