@@ -3,8 +3,6 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import {Card, Container, Row, Col} from 'react-bootstrap';
 
-//fix incorrect wishlist item deletion
-
 const Cart = () => {
     let [items, setItems] = useState();
     let [total, setTotal] = useState();
@@ -35,6 +33,7 @@ const Cart = () => {
         } else {
           throw result.code;
         }
+        if(result.items) {
         let elements = new Array();
         for(let [index, item] of items.entries()) {
           let child = new Array(
@@ -44,7 +43,7 @@ const Cart = () => {
                   <Image src="https://via.placeholder.com/75x75" alt="50x50" width="75px" height="75px"></Image>
                 </div>
                 <div className="ms-3">
-                        <h5>{item.name}</h5>
+                        <h5>{item.name} ({item.id})</h5>
                         <p className="small mb-0">{item.description}</p>
                         </div>
                         </div>
@@ -63,7 +62,7 @@ const Cart = () => {
           elements.push(parent);
         }
         setItems(elements);
-        return;
+        }
       }
       catch(error) {
         console.log(error);

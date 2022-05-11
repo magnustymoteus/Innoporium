@@ -4,8 +4,9 @@ import { server } from '../../lib/server';
 import { useSession } from "next-auth/react";
 
 const Users = () => {
-  const [TBody, setTBody] = useState();
-  const changeUser = useCallback(async(crudArg, clientArg, valueArg) => {
+  const [TBody, setTBody] = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const changeUser = async(crudArg, clientArg, valueArg) => {
     try {
     const res = await fetch('/api/change-user', {
       method: 'POST',
@@ -20,8 +21,8 @@ const Users = () => {
     catch(error) {
         console.log(error);
     }
-  },[CommitTable]);
-    const popoverInit = useCallback((name, id, admin) => {
+  };
+    const popoverInit = (name, id, admin) => {
       let popover = (
           <Popover id="popover-basic">
             <Popover.Header as="h3" className="text-dark">Manage {name}</Popover.Header>
@@ -36,8 +37,8 @@ const Users = () => {
           </Popover>
         );
         return popover;
-      },[changeUser]);
-    const CommitTable = useCallback(async() => {
+      }
+    const CommitTable = async() => {
       try {
           const res = await fetch(`${server}/api/get-users`);
           const result = await res.json();
@@ -68,13 +69,15 @@ const Users = () => {
       catch(error) {
           console.log(error);
       }
-    }, [popoverInit]);
+    };
     const {data: session} = useSession();
     useEffect(() => {
-        if(session) {
-            CommitTable();
+        if(session && !isMounted) {
+            CommitTable().then(() => {
+              setIsMounted(true);
+            });
         }
-    }, [CommitTable, session]);
+    });
     return (
     <div className="vh-100 d-flex justify-content-center align-items-center">
     <Container className="mx-auto bg-light text-dark p-5 rounded" data-aos="fade-down" fluid>  

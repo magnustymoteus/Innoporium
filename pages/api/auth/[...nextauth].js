@@ -57,6 +57,10 @@ export default NextAuth({
                 email: profile.email,
                 provider: "github",
                 ubits: (user)?user.ubits:null,
+                firstName: user.firstName,
+                secondName: user.secondName,
+                sector: user.sector,
+                admin: user.admin,
               }
             }
         }),
@@ -75,6 +79,10 @@ export default NextAuth({
                 email: profile.email,
                 provider: "discord",
                 ubits: (user)?user.ubits:null,
+                firstName: user.firstName,
+                secondName: user.secondName,
+                sector: user.sector,
+                admin: user.admin,
             }
           },
             clientId: process.env.DISCORD_ID,

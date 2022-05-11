@@ -9,9 +9,9 @@ const GetWishlist_handler = async(req, res) => {
     else {
         try {
             const wishlist = await generators.getWishlist(session.user.account_id);
-            const wishlist_products = await generators.getProductsFromWishlist(wishlist);
-            const total_price = wishlist_products.reduce((a,b) => (a)+((b)?b.amount*b.price:0),0);
-            res.json({code:"success", items: wishlist_products, total: parseFloat(total_price.toFixed(2))});
+            const wishlist_products = (wishlist)?await generators.getProductsFromWishlist(wishlist):null;
+            const total_price = (wishlist)?wishlist_products.reduce((a,b) => (a)+((b)?b.amount*b.price:0),0):null;
+            res.json({code:"success", items: wishlist_products, total: (total_price)?parseFloat(total_price.toFixed(2)):total_price});
             res.end();
         }
         catch(error) {
