@@ -1,11 +1,43 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {Table, Container, Popover, OverlayTrigger, Button} from 'react-bootstrap';
 import { server } from '../../lib/server';
 import { useSession } from "next-auth/react";
 
 const Users = () => {
-    const [TBody, setTBody] = useState(null);
-    const commitTable = async() => {
+  const [TBody, setTBody] = useState();
+  const changeUser = useCallback(async(crudArg, clientArg, valueArg) => {
+    try {
+    const res = await fetch('/api/change-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({crud: crudArg, value: valueArg, client: clientArg}),
+    });
+    const result = await res.json();
+    if(result.code === "success") CommitTable();
+    }
+    catch(error) {
+        console.log(error);
+    }
+  },[CommitTable]);
+    const popoverInit = useCallback((name, id, admin) => {
+      let popover = (
+          <Popover id="popover-basic">
+            <Popover.Header as="h3" className="text-dark">Manage {name}</Popover.Header>
+            <Popover.Body>
+                <div className="text-center">
+              {
+              (!admin)?(<Button variant="warning" onClick={() => changeUser("update", id, 1)} className="m-1">Make Admin</Button>):(<Button variant="warning" onClick={() => changeUser("update", id, 0)}>Make User</Button>)
+              }
+              {(!admin) && (<Button variant="danger" onClick={() => changeUser("delete", id)} className="m-1">Delete User</Button>)}
+              </div>
+            </Popover.Body>
+          </Popover>
+        );
+        return popover;
+      },[changeUser]);
+    const CommitTable = useCallback(async() => {
       try {
           const res = await fetch(`${server}/api/get-users`);
           const result = await res.json();
@@ -36,45 +68,13 @@ const Users = () => {
       catch(error) {
           console.log(error);
       }
-  }
-    const changeUser = async(crudArg, clientArg, valueArg) => {
-      try {
-      const res = await fetch('/api/change-user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({crud: crudArg, value: valueArg, client: clientArg}),
-      });
-      const result = await res.json();
-      if(result.code === "success") commitTable();
-      }
-      catch(error) {
-          console.log(error);
-      }
-    }
-    const popoverInit = (name, id, admin) => {
-    const popover = (
-        <Popover id="popover-basic">
-          <Popover.Header as="h3" className="text-dark">Manage {name}</Popover.Header>
-          <Popover.Body>
-              <div className="text-center">
-            {
-            (!admin)?(<Button variant="warning" onClick={() => changeUser("update", id, 1)} className="m-1">Make Admin</Button>):(<Button variant="warning" onClick={() => changeUser("update", id, 0)}>Make User</Button>)
-            }
-            {(!admin) && (<Button variant="danger" onClick={() => changeUser("delete", id)} className="m-1">Delete User</Button>)}
-            </div>
-          </Popover.Body>
-        </Popover>
-      );
-      return popover;
-    }
+    }, [popoverInit]);
     const {data: session} = useSession();
     useEffect(() => {
         if(session) {
-        commitTable();
+            CommitTable();
         }
-    });
+    }, [CommitTable, session]);
     return (
     <div className="vh-100 d-flex justify-content-center align-items-center">
     <Container className="mx-auto bg-light text-dark p-5 rounded" data-aos="fade-down" fluid>  

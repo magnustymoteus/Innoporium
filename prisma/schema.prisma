@@ -25,7 +25,7 @@ model client {
   password    String?       @db.VarChar(200)
   sector      String        @db.VarChar(10)
   email       String        @db.VarChar(45)
-  ubits       Float         @default(5.62251) @db.Float
+  ubits       Decimal       @default(5.62) @db.Decimal(5, 2)
 }
 
 model transactions {
@@ -40,7 +40,7 @@ model products {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(45)
   description String? @db.Text
-  price       Float   @db.Float
+  price       Decimal @db.Decimal(5, 2)
   inStock     Int     @default(0) @db.UnsignedInt
 }
 

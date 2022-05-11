@@ -10,7 +10,8 @@ const GetWishlist_handler = async(req, res) => {
         try {
             const wishlist = await generators.getWishlist(session.user.account_id);
             const wishlist_products = await generators.getProductsFromWishlist(wishlist);
-            res.json({code:"success", items: wishlist_products});
+            const total_price = wishlist_products.reduce((a,b) => (a)+((b)?b.amount*b.price:0),0);
+            res.json({code:"success", items: wishlist_products, total: parseFloat(total_price.toFixed(2))});
             res.end();
         }
         catch(error) {

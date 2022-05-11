@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
+    "@types/aos": "^3.0.4",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "prisma": "^3.13.0"
