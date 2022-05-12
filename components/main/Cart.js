@@ -33,8 +33,6 @@ const Cart = () => {
           if(result.code == "success") {
             var items = result.items;
             setTotal(result.total);
-        } else {
-          throw result.code;
         }
         if(result.items) {
         let elements = items.map((item, index) => {
@@ -112,16 +110,19 @@ const Cart = () => {
                             <p className="mb-2">Total(Incl. taxes)</p>
                             <p className="mb-2 ubit">{(items)?`U ${parseFloat(((total+(total*0.15)).toFixed(2)))}`:'...'}</p>
                           </div>
+                          {
+                          (items)?
                           <button type="button" className="btn btn-light btn-block btn-lg btn-checkout">
                             <div className="d-flex justify-content-between">
                               <span>Checkout <i className="fas fa-long-arrow-alt-right ms-2"></i></span>
                             </div>
                           </button>
+                          : <></>
+                          }
                         </Card.Body>
                       </Card>
                     </Col>
                   </Row>
-      
                 </Card.Body>
               </Card>
             </Col>
