@@ -42,6 +42,7 @@ model products {
   description String? @db.Text
   price       Decimal @db.Decimal(5, 2)
   inStock     Int     @default(0) @db.UnsignedInt
+  image       String? @db.VarChar(250)
 }
 
 model wishlist {

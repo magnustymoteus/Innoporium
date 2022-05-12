@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, {useEffect, useState} from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import {Card, Container, Row, Col} from 'react-bootstrap';
@@ -6,8 +6,9 @@ import {Card, Container, Row, Col} from 'react-bootstrap';
 const Cart = () => {
     let [items, setItems] = useState();
     let [total, setTotal] = useState();
+    const [isMounted, setIsMounted] = useState(false);
     const {data: session} = useSession();
-    const deleteFromWishlist = useCallback(async(productIdArg, actionArg) => {
+    const deleteFromWishlist = async(productIdArg, actionArg) => {
       try {
         const res = await fetch('/api/manage-wishlist', {
           method: 'POST',
@@ -17,13 +18,15 @@ const Cart = () => {
           body: JSON.stringify({clientID: session.user.account_id, productID: productIdArg, crud: actionArg}),
         });
         const result = await res.json();
-        if(result.code !== "success") throw result.code;
+        if(result.code === "success") {
+            renderWishlist();
+        }
       }
       catch(error) {
         console.log(error);
       }
-      }, [session]);
-    const renderWishlist = useCallback(async() => {
+      }
+    const renderWishlist = async() => {
       try {
         const res = await fetch(`api/get-wishlist`);
         const result = await res.json();
@@ -34,45 +37,49 @@ const Cart = () => {
           throw result.code;
         }
         if(result.items) {
-        let elements = new Array();
-        for(let [index, item] of items.entries()) {
-          let child = new Array(
-            <div className="d-flex justify-content-between" key={`item-${index}`}>
-              <div className="d-flex flex-row align-items-center">
-                  <div>
-                  <Image src="https://via.placeholder.com/75x75" alt="50x50" width="75px" height="75px"></Image>
-                </div>
-                <div className="ms-3">
-                        <h5>{item.name} ({item.id})</h5>
-                        <p className="small mb-0">{item.description}</p>
-                        </div>
-                        </div>
-                        <div className="d-flex flex-row align-items-center">
-                        <div className="div-01">
-                        <small className="fw-normal mb-0">{item.amount}x</small>
-                        </div>
-                        <div className="div-02 w-100">
-                        <small className="mb-0 ubit">U {item.price*item.amount}</small>
-                      </div>
-                    <button onClick={() => deleteFromWishlist(item.id, "delete")}><small className="fas fa-trash-alt"></small></button>
+        let elements = items.map((item, index) => {
+          return (
+          <Card key={`card-${index}`}>
+          <Card.Body>
+          <div className="d-flex justify-content-between" key={`item-${index}`}>
+          <div className="d-flex flex-row align-items-center">
+              <div>
+              {(item.image)?<Image src={item.image} alt={`item-image${item.image}`} className="cart-image" width="126px" height="100px"></Image>:<></>}
+            </div>
+            <div className="ms-3">
+                    <h5>{item.name}</h5>
+                    <p className="small mb-0">{item.description}</p>
+                    </div>
+                    </div>
+                    <div className="d-flex flex-row align-items-center">
+                    <div className="div-01">
+                    <small className="fw-normal mb-0">{item.amount}x</small>
+                    </div>
+                    <div className="div-02 w-100">
+                    <small className="mb-0 ubit">U {item.price*item.amount}</small>
                   </div>
-                </div>
-          );
-          let parent = (<Card key={`card-${index}`}><Card.Body>{child}</Card.Body></Card>);
-          elements.push(parent);
-        }
+                <button className={`button-item${item.id}`} onClick={() => deleteFromWishlist(item.id, "delete")}><small className="fas fa-trash-alt"></small></button>
+              </div>
+            </div>
+            </Card.Body>
+            </Card>)
+        });
         setItems(elements);
+        }
+        else {
+          setItems();
+          setTotal();
         }
       }
       catch(error) {
         console.log(error);
       }
-    }, [deleteFromWishlist]);
+    }
     useEffect(() => {
-        if(session) {
-          renderWishlist();
+        if(session && !isMounted) {
+          renderWishlist().then(() => {setIsMounted(true);});
         }
-      }, [session, renderWishlist]);
+      });
     return (
         <section className="h-100 h-custom">
         <Container className="h-100 text-dark py-5">

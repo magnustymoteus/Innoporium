@@ -50,7 +50,7 @@ const Shop = () => {
                       <li>Latest Military Gear</li>
                       <li>Augmented Gadgets</li>
                       <li>Surveillance Technology</li>
-                      <button className="button purchaseButton btnGreen" onClick={() => addToWishlist(1, "add")}>add to wishlist <br/><small className="ubit">U 3.23</small></button>
+                      <button className="button purchaseButton btnGreen" onClick={() => addToWishlist(1, "add")}>add to cart<br/><small className="ubit">U 3.23</small></button>
                     </ul>
                   </div>
                   </div>
@@ -62,7 +62,7 @@ const Shop = () => {
                       <li>Metaverse 3.0</li>
                       <li>Qubyte Reactors &amp; Processors</li>
                       <li>Space Technology</li>
-                      <button className="button purchaseButton btnBlue" onClick={() => addToWishlist(2, "add")}>add to wishlist <br/><small className="ubit">U 6.29</small></button>
+                      <button className="button purchaseButton btnBlue" onClick={() => addToWishlist(2, "add")}>add to cart<br/><small className="ubit">U 6.29</small></button>
                     </ul>
                   </div>
                   </div>
@@ -74,7 +74,7 @@ const Shop = () => {
                       <li>Private Space Tour To <mark>[REDACTED]</mark></li>
                       <li>Reading Access To <mark>[REDACTED]</mark> Research</li>
                       <li><mark>[REDACTED]</mark></li>
-                  <button className="button purchaseButton btnRed" onClick={() => addToWishlist(3, "add")}>add to wishlist <br/><small className="ubit">U 9.19</small></button>
+                  <button className="button purchaseButton btnRed" onClick={() => addToWishlist(3, "add")}>add to cart<br/><small className="ubit">U 9.19</small></button>
                   </ul>
                 </div>
                 </div>

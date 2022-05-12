@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {Table, Container, Popover, OverlayTrigger, Button} from 'react-bootstrap';
 import { server } from '../../lib/server';
 import { useSession } from "next-auth/react";
 
 const Users = () => {
   const [TBody, setTBody] = useState(null);
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useRef(false);
   const changeUser = async(crudArg, clientArg, valueArg) => {
     try {
     const res = await fetch('/api/change-user', {
@@ -17,7 +17,7 @@ const Users = () => {
     });
     const result = await res.json();
     if(result.code === "success") CommitTable();
-    }
+  }
     catch(error) {
         console.log(error);
     }
@@ -39,7 +39,7 @@ const Users = () => {
         return popover;
       }
     const CommitTable = async() => {
-      try {
+      try { 
           const res = await fetch(`${server}/api/get-users`);
           const result = await res.json();
             if(result.code == "success") {
@@ -72,10 +72,11 @@ const Users = () => {
     };
     const {data: session} = useSession();
     useEffect(() => {
-        if(session && !isMounted) {
-            CommitTable().then(() => {
-              setIsMounted(true);
-            });
+        if(session && !isMounted.current) {
+            CommitTable();
+        }
+        return () => {
+          isMounted.current = true;
         }
     });
     return (
