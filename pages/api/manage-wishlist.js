@@ -15,12 +15,13 @@ const ManageUser_handler = async(req, res) => {
             const rb = req.body;
             switch(rb.crud) {
                 case "add":
-                    await generators.addToWishlist(rb.clientID, rb.productID);
+                    await generators.addToItems(rb.clientID, rb.productID);
                     break;
                 case "delete":
-                    await generators.deleteFromWishlist(rb.clientID, rb.productID);
+                    await generators.deleteFromItems(rb.clientID, rb.productID);
                     break;
                 case "checkout":
+                    if(rb.totalPrice<=rb.ubits) {
                     let receipt_arr = new Array();
                     rb.products.map((item) => {
                         receipt_arr.push({"description": item.name, "amount": item.amount});
@@ -28,6 +29,11 @@ const ManageUser_handler = async(req, res) => {
                     const details = await generators.checkout(rb.clientID, rb.totalPrice);
                     await generators.sendEmail(session.user.firstName, details.id, new Date().toLocaleString(), receipt_arr, rb.totalPrice+" Ubits", session.user.email);
                     break;
+                    }
+                    else {
+                        res.status(401).json({code: "error", message: "forbidden"});
+                        return;
+                    }
             }
             res.json({code:"success"});
         }
