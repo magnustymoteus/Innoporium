@@ -29,11 +29,9 @@ model client {
 }
 
 model transactions {
-  id        Int      @id @default(autoincrement())
-  date      DateTime @db.Date
-  clientID  Int      @db.UnsignedInt
-  productID Int      @db.UnsignedInt
-  amount    Int      @db.UnsignedInt
+  id   Int      @id @default(autoincrement())
+  date DateTime @db.Date
+  cost Decimal  @db.Decimal(5, 2)
 }
 
 model products {
@@ -45,11 +43,12 @@ model products {
   image       String? @db.VarChar(250)
 }
 
-model wishlist {
-  id        Int @id @default(autoincrement())
-  clientID  Int @db.UnsignedInt
-  productID Int @db.UnsignedInt
-  amount    Int @db.UnsignedInt
+model items {
+  id            Int  @id @default(autoincrement())
+  transactionID Int? @db.UnsignedInt
+  clientID      Int  @db.UnsignedInt
+  productID     Int  @db.UnsignedInt
+  amount        Int  @db.UnsignedInt
 }
 
 enum client_gender {

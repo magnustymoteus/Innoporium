@@ -20,6 +20,14 @@ const ManageUser_handler = async(req, res) => {
                 case "delete":
                     await generators.deleteFromWishlist(rb.clientID, rb.productID);
                     break;
+                case "checkout":
+                    let receipt_arr = new Array();
+                    rb.products.map((item) => {
+                        receipt_arr.push({"description": item.name, "amount": item.amount});
+                    });
+                    const details = await generators.checkout(rb.clientID, rb.totalPrice);
+                    await generators.sendEmail(session.user.firstName, details.id, new Date().toLocaleString(), receipt_arr, rb.totalPrice+" Ubits", session.user.email);
+                    break;
             }
             res.json({code:"success"});
         }

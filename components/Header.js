@@ -3,7 +3,7 @@ import {signOut, useSession} from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navbar, Nav, Container, NavDropdown} from 'react-bootstrap';
 
 import Logo from '../public/images/svg/logo-white.svg';
@@ -13,8 +13,22 @@ const defaultPImg = "https://res.cloudinary.com/dmejmwxek/image/upload/v16514992
 
 const Header = () => {
     const {data: session, status} = useSession();
+    const [ubits, setUbits] = useState();
+    const getUbits = async() => {
+      try {
+        const res = await fetch("/api/get-client");
+        const result = await res.json();
+        if(result.code === "success") {
+          setUbits(parseFloat(result.user.ubits));
+        }
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
     useEffect(() => {
         Aos.init({duration: 1e3});
+        getUbits();
     });
     const sOut = (e) => {
       e.preventDefault();
@@ -49,7 +63,7 @@ const Header = () => {
           {(session.user.profileComplete || session.user.native) && (<Link href="/cart" passHref><Nav.Link className="mx-2 text-center my-auto">Cart</Nav.Link></Link>)}
          <Link href="/api/auth/signout" passHref><Nav.Link className="mx-2 text-white text-center my-auto"  onClick={e => sOut(e)}>sign out</Nav.Link></Link>
       </NavDropdown>
-        {(session.user.ubits)?<p className="mx-2 my-auto text-white ubit">U {session.user.ubits}</p>:<></>}
+        {(session.user.ubits)?<p className="mx-2 my-auto text-white ubit">U {ubits}</p>:<></>}
         </React.Fragment>
       )
       }

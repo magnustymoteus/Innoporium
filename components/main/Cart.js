@@ -2,20 +2,54 @@ import React, {useEffect, useState} from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import {Card, Container, Row, Col} from 'react-bootstrap';
+import { useRouter } from 'next/router'
 
 const Cart = () => {
-    let [items, setItems] = useState();
-    let [total, setTotal] = useState();
-    const [isMounted, setIsMounted] = useState(false);
+    const router = useRouter();
     const {data: session} = useSession();
-    const deleteFromWishlist = async(productIdArg, actionArg) => {
+    const [items, setItems] = useState();
+    const [products, setProducts] = useState();
+    const [total, setTotal] = useState();
+    const [isMounted, setIsMounted] = useState(false);
+    const [ubits, setUbits] = useState();
+    const checkout = async() => {
       try {
         const res = await fetch('/api/manage-wishlist', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({clientID: session.user.account_id, productID: productIdArg, crud: actionArg}),
+          body: JSON.stringify({crud: "checkout", totalPrice: parseFloat(total+(total*0.15)).toFixed(2), products: products}),
+        });
+        const result = await res.json();
+        if(result.code === "success") {
+            router.reload();
+        }
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
+    const getUbits = async() => {
+        try {
+          const res = await fetch("/api/get-client");
+          const result = await res.json();
+          if(result.code === "success") {
+            setUbits(parseFloat(result.user.ubits));
+          }
+        }
+        catch(error) {
+          console.log(error);
+        }
+    }
+    const deleteFromWishlist = async(productIdArg) => {
+      try {
+        const res = await fetch('/api/manage-wishlist', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({clientID: session.user.account_id, productID: productIdArg, crud: "delete"}),
         });
         const result = await res.json();
         if(result.code === "success") {
@@ -30,9 +64,11 @@ const Cart = () => {
       try {
         const res = await fetch(`api/get-wishlist`);
         const result = await res.json();
-          if(result.code == "success") {
+          if(result.code === "success") {
             var items = result.items;
+            setProducts(items);
             setTotal(result.total);
+            getUbits();
         }
         if(result.items) {
         let elements = items.map((item, index) => {
@@ -56,7 +92,7 @@ const Cart = () => {
                     <div className="div-02 w-100">
                     <small className="mb-0 ubit">U {item.price*item.amount}</small>
                   </div>
-                <button className={`button-item${item.id}`} onClick={() => deleteFromWishlist(item.id, "delete")}><small className="fas fa-trash-alt"></small></button>
+                <button className={`button-item${item.id}`} onClick={() => deleteFromWishlist(item.id)}><small className="fas fa-trash-alt"></small></button>
               </div>
             </div>
             </Card.Body>
@@ -112,9 +148,16 @@ const Cart = () => {
                           </div>
                           {
                           (items)?
-                          <button type="button" className="btn btn-light btn-block btn-lg btn-checkout">
+                          <button type="button" className="btn btn-light btn-block btn-lg btn-checkout" onClick={() => checkout()}  disabled={(parseFloat(((total+(total*0.15)).toFixed(2)))>ubits)}>
                             <div className="d-flex justify-content-between">
-                              <span>Checkout <i className="fas fa-long-arrow-alt-right ms-2"></i></span>
+                              <span>{
+                              (parseFloat(((total+(total*0.15)).toFixed(2)))>ubits)?
+                              <small>Not Enough Ubits</small>
+                              :
+                              (<React.Fragment>
+                                <small>Checkout</small><i className="fas fa-long-arrow-alt-right ms-2"></i>
+                              </React.Fragment>)
+                              }</span>
                             </div>
                           </button>
                           : <></>

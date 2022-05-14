@@ -46,7 +46,7 @@ const Shop = () => {
                 <div className="tierAccordion accordionGreen" data-aos="fade-in" id="loc2">
                   <h1>TIER 1</h1>
                     <ul>
-                      <li>Infrapoint&apos;s Architectural Models</li>
+                      <li>Architectural Models &amp; Blueprints</li>
                       <li>Latest Military Gear</li>
                       <li>Augmented Gadgets</li>
                       <li>Surveillance Technology</li>
@@ -71,8 +71,8 @@ const Shop = () => {
                   <h1>TIER 3</h1>
                   <ul>
                       <li>Teleportation Technology</li>
+                      <li>One-time Access to Time Travel</li>
                       <li>Private Space Tour To <mark>[REDACTED]</mark></li>
-                      <li>Reading Access To <mark>[REDACTED]</mark> Research</li>
                       <li><mark>[REDACTED]</mark></li>
                   <button className="button purchaseButton btnRed" onClick={() => addToWishlist(3, "add")}>add to cart<br/><small className="ubit">U 9.19</small></button>
                   </ul>
