@@ -19,7 +19,7 @@ const Cart = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ubits: ubits, crud: "checkout", totalPrice: parseFloat(total+(total*0.15)).toFixed(2), products: products}),
+          body: JSON.stringify({clientID: session.user.account_id, ubits: ubits, crud: "checkout", totalPrice: parseFloat(total+(total*0.15)).toFixed(2), products: products}),
         });
         const result = await res.json();
         if(result.code === "success") {
