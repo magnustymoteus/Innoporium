@@ -21,7 +21,8 @@ const ManageUser_handler = async(req, res) => {
                     await generators.deleteFromItems(rb.clientID, rb.productID);
                     break;
                 case "checkout":
-                    if(rb.totalPrice<=rb.ubits) {
+                    const client = await generators.getUserById(session.user.account_id);
+                    if(rb.totalPrice<=client.ubits) {
                     let receipt_arr = new Array();
                     rb.products.map((item) => {
                         receipt_arr.push({"description": item.name, "amount": item.amount});

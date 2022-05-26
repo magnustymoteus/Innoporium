@@ -43,8 +43,7 @@ const Header = () => {
     <Navbar.Collapse id="responsive-navbar-nav" className="animate__animated animate__fadeIn">
       <Nav className="me-auto">
         <Link href="/" passHref><Nav.Link className="mx-2 text-white">expo</Nav.Link></Link>
-        <Link href="/" passHref><Nav.Link className="mx-2 text-white">univ</Nav.Link></Link>
-        <Link href="/" passHref><Nav.Link className="mx-2 text-white">behind the scenes</Nav.Link></Link>
+        <Link href="https://www.youtube.com/watch?v=yC9ZDxjahIA" passHref><Nav.Link className="mx-2 text-white" target="_blank" rel="noopener noreferrer">behind the scenes</Nav.Link></Link>
         <Link href="/contact" passHref><Nav.Link className="mx-2 text-white">contact</Nav.Link></Link>
       </Nav>
       <Nav>

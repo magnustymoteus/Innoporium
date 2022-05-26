@@ -33,7 +33,7 @@ const Home = () => {
       <div className="videoOverlay-BottomLeft" data-aos="zoom-in">
         <h1 className="display-2" id="main-slogan">center of innovation <br></br>since 2032</h1>
         <Link href="/shop" passHref><button className="button btnBig btnRed">buy keycards</button></Link>
-        <button className="button btnBig btnBlack">watch video</button>
+        <Link href="https://www.youtube.com/watch?v=sNvYMR98jgI&ab_channel=Innoporium2049" passHref><a target="_blank" rel="noopener noreferrer"> <button className="button btnBig btnBlack">watch teaser</button></a></Link>
       </div>
 </section>
 
