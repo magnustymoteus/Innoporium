@@ -28,7 +28,9 @@ const Header = () => {
     }
     useEffect(() => {
         Aos.init({duration: 1e3});
+        if(session && status == "authenticated") {
         getUbits();
+        }
     });
     const sOut = (e) => {
       e.preventDefault();
